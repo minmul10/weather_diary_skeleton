@@ -21,13 +21,15 @@ public class DiaryController {
 
     @ApiOperation(value = "다이어리를 생성하는 곳입니다.", notes = "노트")
     @PostMapping("/create/diary")
-    void createDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestBody String text) {
+    void createDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                     @ApiParam(value = "다이어리 생성 날짜", example = "2022-01-01") LocalDate date, @RequestBody String text) {
         diaryService.createDiary(date, text);
     }
 
     @ApiOperation(value = "선택한 날짜의 일기를 가져옵니다.")
     @GetMapping("/read/diary")
-    List<Diary> readDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    List<Diary> readDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                          @ApiParam(value = "다이어리 조회", example = "2022-01-01") LocalDate date) {
         return diaryService.readDiary(date);
     }
 
@@ -42,13 +44,16 @@ public class DiaryController {
 
     @ApiOperation(value = "일기의 내용을 업데이트하는 곳입니다.")
     @PutMapping("/update/diary")
-    void upDateDiary (@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestBody String text) {
+    void updateDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                     @ApiParam(value = "다이어리 내용 업데이트", example = "2022-01-01")LocalDate date, @RequestBody String text) {
         diaryService.updateDiary(date, text);
     }
 
     @ApiOperation(value = "다이어리를 삭제하는 곳입니다.")
     @DeleteMapping("/delete/diary")
-    void deleteDiary (@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    void deleteDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                     @ApiParam(value = "다이어리 삭제", example = "2022-01-01") LocalDate date) {
         diaryService.deleteDiary(date);
     }
 }
+
